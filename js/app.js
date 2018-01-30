@@ -19,7 +19,6 @@ function addNewItem(e) {
         $("#firstItem").text(item);
     } else {
         $("ol").append("<li>"+ item +"</li>");
-        $("li").dblclick(markAsDone);
     }
     $("#newItemName").val("");
     $("#newItemName").focus();
@@ -36,14 +35,12 @@ $("document").ready(function() {
         });
     }
 
-    //Add double click handlers for li's
-    $("li").dblclick(markAsDone);
+    //Use event delegation to add double click handlers for li's
+    $("ol").on("dblclick", "li", markAsDone);
 
     //Make li's sortable
-    $( function() {
-        $("ol").sortable();
-        $("ol").disableSelection();
-    });
+    $("ol").sortable();
+    $("ol").disableSelection();
 
     //Add submit handler to form, click handler to submitButton
     $("form").on("submit", addNewItem);
