@@ -2,14 +2,8 @@ body {
     background-color: black;
     font-family: 'Nothing You Could Do', cursive;
     color: #484a4f;
-}
-
-#graphPaper {
-    background-image: url(../img/graphpaper.png);
-    background-color: white;
-    height: 700px;
-    width: 70%;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -23,11 +17,6 @@ li {
     font-size: 2em;
 }
 
-.list {
-    width: 25%;
-    margin: 0;
-}
-
 .completed {
     text-decoration: line-through;
 }
@@ -36,21 +25,29 @@ li {
     position: absolute;
 }
 
+#graphPaper {
+    background-image: url(../img/graphpaper.png);
+    background-color: white;
+    height: 725px;
+    width: 70%;
+    margin: 0 auto;
+}
+
 #listContainer {
     position: absolute;
     top: 9%;
-    left: 22%;
+    left: 21%;
 }
 
 #newItem {
-    position: absolute;
-    top: 5%;
-    right: -6%;
+    text-align: right;
+    position: relative;
+    top: 9.5%;
 }
 
 .submitButton {
-    width: 30%;
     font-weight: bold;
+    display: inline-block;
 }
 
 .submitButton:hover {
@@ -59,22 +56,23 @@ li {
 }
 
 img.submitButton { 
+    position: absolute;
+    right: 5%;
+    top: -100%;
+    width: 150px;
     opacity: 0.75;
 }
 
 span.submitButton {
-    position: absolute;
-    top: 20%;
-    left: 5%;
     font-weight: 800;
     font-size: 1.5em;
     transform: rotate(-2deg);
+    position: relative;
+    right: 9%;
 }
 
 #newItemName {
-    position: absolute;
-    top: 20%;
-    left: -50%;
+    display: inline-block;
     width: 225px;
     height: 30px;
     font-family: 'Nothing You Could Do', cursive;
@@ -83,6 +81,8 @@ span.submitButton {
     background: url(../img/underline.png);
     background-position: bottom;
     border: none;
+    position: relative;
+    right: 10.5%;
 }
 
 #earth {

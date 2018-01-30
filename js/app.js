@@ -1,30 +1,56 @@
-$("document").ready(function() {
-    $("li").dblclick(function() { 
-        $(this).addClass("completed");
-        setTimeout(function() {
-            $(".completed").remove();
-        }, 500);
-    })
-    $("form").on("submit", addNewItem);
-    $(".submitButton").click(function() {
-        $("form").submit();
-    })
-    $("#newItemName").focus();
-})
+var toDoItems = [];
+
+function markAsDone() { 
+    $(this).addClass("completed");
+    toDoItems.splice(toDoItems.indexOf($(this).text()), 1);
+    localStorage.toDoItems = JSON.stringify(toDoItems);
+    setTimeout(function() {
+        $(".completed").remove();
+    }, 500);
+}
 
 function addNewItem(e) {
+    //Stop form from posting
     e.preventDefault();
-    if($("#firstItem").text() === "Nothing to do so far!") {
-        $("#firstItem").text($("#newItemName").val());
+    var item = $("#newItemName").val();
+    toDoItems.push(item);
+    localStorage.toDoItems = JSON.stringify(toDoItems);
+    if ($("#firstItem").text() ==="Nothing to do so far!") {
+        $("#firstItem").text(item);
     } else {
-        $("ul").append("<li>" + $("#newItemName").val() + "</li>");
-        $("li").dblclick(function() { 
-            $(this).addClass("completed");
-            setTimeout(function() {
-                $(".completed").remove();
-        }, 500);
-        })
+        $("ol").append("<li>"+ item +"</li>");
+        $("li").dblclick(markAsDone);
     }
     $("#newItemName").val("");
     $("#newItemName").focus();
 }
+
+
+$("document").ready(function() {
+    //Load existing to-do items
+    toDoItems = localStorage.toDoItems ? JSON.parse(localStorage.toDoItems) : [];
+    if (toDoItems.length > 0) {
+        $("#firstItem").remove();
+        toDoItems.forEach(function(item) {
+            $("ol").append("<li>"+ item +"</li>");
+        });
+    }
+
+    //Add double click handlers for li's
+    $("li").dblclick(markAsDone);
+
+    //Make li's sortable
+    $( function() {
+        $("ol").sortable();
+        $("ol").disableSelection();
+    });
+
+    //Add submit handler to form, click handler to submitButton
+    $("form").on("submit", addNewItem);
+    $(".submitButton").click(function() {
+        $("form").submit();
+    })
+
+    //Focus on item input field
+    $("#newItemName").focus();
+})
